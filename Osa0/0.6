@@ -1,8 +1,14 @@
-title New note SPA
+title New notes SPA
 
-selain->palvelin:get all notes
-käyttäjä->selain:new note request
-selain->palvelin: save new note
-palvelin->selain: new note response
-selain->user:new note response
-selain->palvelin:get all notes
+selain->palvelin: get spa
+palvelin->selain: spa response 
+note right of palvelin: html-koodi
+selain->palvelin: get main.css
+palvelin->selain: main.css response
+note right of palvelin: tyylitiedosto
+selain->palvelin: get spa.js 
+palvelin->selain: spa.js response 
+note right of palvelin: js-koodi, joka alkaa suorittaa jsonia
+note right of palvelin: tapahtumakäsittelija tulostaa aiemmat muistiinpaniot sivulle
+
+
