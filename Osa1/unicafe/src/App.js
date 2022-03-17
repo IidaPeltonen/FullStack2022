@@ -27,11 +27,8 @@ const App = () => {
   return (
     <div>
       <h1>Anna palautetta</h1>
-      {good}
       <Button handleClick={handleGoodClick} text='Huippu!' />
-      {neutral}
       <Button handleClick={handleNeutralClick} text='Neutraali' />
-      {bad}
       <Button handleClick={handleBadClick} text='Huono!' />
       <h2>Statistiikka</h2>
       <p>Huippu: {good}</p>  
