@@ -1,5 +1,20 @@
 import { useState } from 'react'
 
+const Statistiikka = ({ good, neutral, bad, allClicks, allClicksYht, positiiviset}) => {
+  /*tähän se tulostuskoodi*/
+  return (
+    <div>
+      <h2>Statistiikka</h2>
+      <p>Huippu: {good}</p>  
+      <p>Neutraali: {neutral}</p>  
+      <p>Huono: {bad}</p> 
+      <p>Ääniä yhteensä: {(allClicks-1)} </p> 
+      <p>Äänien keskiarvo: {allClicksYht/(allClicks-1)}</p>
+      <p>Äänistä positiivisia: {positiiviset/(allClicks-1) * 100}  %</p>
+    </div>
+  )
+}
+
 const Button = ({ handleClick, text }) => (
   <button onClick={handleClick}>
     {text}
@@ -42,13 +57,8 @@ const App = () => {
       <Button handleClick={handleGoodClick} text='Huippu!' />
       <Button handleClick={handleNeutralClick} text='Neutraali' />
       <Button handleClick={handleBadClick} text='Huono!' />
-      <h2>Statistiikka</h2>
-      <p>Huippu: {good}</p>  
-      <p>Neutraali: {neutral}</p>  
-      <p>Huono: {bad}</p> 
-      <p>Ääniä yhteensä: {(allClicks-1)} </p> 
-      <p>Äänien keskiarvo: {allClicksYht/(allClicks-1)}</p>
-      <p>Äänistä positiivisia: {positiiviset/(allClicks-1) * 100}  %</p>
+      <Statistiikka good={good} bad={bad} neutral={neutral} allClicks={allClicks} allClicksYht={allClicksYht} positiiviset={positiiviset} />
+
     </div>
   )
 }
