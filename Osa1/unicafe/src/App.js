@@ -5,26 +5,39 @@ const Statistiikka = ({ good, neutral, bad, allClicks, allClicksYht, positiivise
   /* jos ääniä ei ole annettu */
   if ((allClicks-1) === 0) {
       return (
-        <p>Ääniä ei ole vielä annettu</p>
+
+          <p>
+            Ääniä ei ole vielä annettu
+          </p>
       )
   }
   return (
     <div>
-      <StatisticLine text="Huippu: " value={good} />
-      <StatisticLine text="Neutraali: " value={neutral} />
-      <StatisticLine text="Huono: " value={bad} />
-      <StatisticLine text="Ääniä annettu: " value={(allClicks -1)} />
-      <StatisticLine text="Äänten keskiarvo:" value={allClicksYht/(allClicks-1)} />
-      <StatisticLine text="Äänistä positiivisia:" value={positiiviset/(allClicks-1) * 100} />
+       <h1>Statistiikka</h1>
+        <table>
+          <tbody>
+              <StatisticLine text="Huippu: " value={good} />  
+              <StatisticLine text="Neutraali: " value={neutral} />
+              <StatisticLine text="Huono: " value={bad} />
+              <StatisticLine text="Ääniä annettu: " value={(allClicks -1)} />
+              <StatisticLine text="Äänten keskiarvo:" value={allClicksYht/(allClicks-1)} />
+              <StatisticLine text="Äänistä positiivisia:" value={positiiviset/(allClicks-1) * 100} />
+        </tbody>
+      </table>
     </div>
   )
 }
 
 const StatisticLine = (props) => {
   return (
-  <div>
-    <p>{props.text} {props.value}</p>
-  </div>
+  <tr>
+    <td>
+      {props.text}
+    </td>
+    <td>
+      {props.value}
+    </td>
+  </tr>
   )
 }
 
@@ -68,11 +81,11 @@ const App = () => {
     <div>
       <h1>Anna palautetta</h1>
       <Button handleClick={handleGoodClick} text='Huippu!' />
-      <Button handleClick={handleNeutralClick} text='Neutraali' />
-      <Button handleClick={handleBadClick} text='Huono!' />
+      <Button handleClick={handleNeutralClick} text='Neutraali' />            
+      <Button handleClick={handleBadClick} text='Huono!' />            
       <Statistiikka good={good} bad={bad} neutral={neutral} allClicks={allClicks} allClicksYht={allClicksYht} positiiviset={positiiviset} />
-
     </div>
+    
   )
 }
 
