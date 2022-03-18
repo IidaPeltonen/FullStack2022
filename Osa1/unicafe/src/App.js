@@ -10,20 +10,24 @@ const Statistiikka = ({ good, neutral, bad, allClicks, allClicksYht, positiivise
   }
   return (
     <div>
-      <h2>Statistiikka</h2>
-      <p>Huippu: {good}</p>  
-      <p>Neutraali: {neutral}</p>  
-      <p>Huono: {bad}</p> 
-      <p>Ääniä yhteensä: {(allClicks-1)} </p> 
-      <p>Äänien keskiarvo: {allClicksYht/(allClicks-1)}</p>
-      <p>Äänistä positiivisia: {positiiviset/(allClicks-1) * 100}  %</p>
+      <StatisticLine text="Huippu: " value={good} />
+      <StatisticLine text="Neutraali: " value={neutral} />
+      <StatisticLine text="Huono: " value={bad} />
+      <StatisticLine text="Ääniä annettu: " value={(allClicks -1)} />
+      <StatisticLine text="Äänten keskiarvo:" value={allClicksYht/(allClicks-1)} />
+      <StatisticLine text="Äänistä positiivisia:" value={positiiviset/(allClicks-1) * 100} />
     </div>
   )
 }
 
 const StatisticLine = (props) => {
-
+  return (
+  <div>
+    <p>{props.text} {props.value}</p>
+  </div>
+  )
 }
+
 const Button = ({ handleClick, text }) => (
   <button onClick={handleClick}>
     {text}
