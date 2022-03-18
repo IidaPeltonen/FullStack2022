@@ -2,6 +2,12 @@ import { useState } from 'react'
 
 const Statistiikka = ({ good, neutral, bad, allClicks, allClicksYht, positiiviset}) => {
   /*tähän se tulostuskoodi*/
+  /* jos ääniä ei ole annettu */
+  if ((allClicks-1) === 0) {
+      return (
+        <p>Ääniä ei ole vielä annettu</p>
+      )
+  }
   return (
     <div>
       <h2>Statistiikka</h2>
@@ -15,6 +21,9 @@ const Statistiikka = ({ good, neutral, bad, allClicks, allClicksYht, positiivise
   )
 }
 
+const StatisticLine = (props) => {
+
+}
 const Button = ({ handleClick, text }) => (
   <button onClick={handleClick}>
     {text}
