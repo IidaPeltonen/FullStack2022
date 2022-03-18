@@ -1,3 +1,5 @@
+/* Iida Peltonen 2022 */
+
 import ReactDOM from 'react-dom'
 import App from './App'
 

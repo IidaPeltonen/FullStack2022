@@ -1,3 +1,5 @@
+/* Iida Peltonen 2022 */
+
 import { useState } from 'react'
 
 const Statistiikka = ({ good, neutral, bad, allClicks, allClicksYht, positiiviset}) => {

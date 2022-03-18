@@ -1,3 +1,5 @@
+/* Iida Peltonen 2022 */
+
 import React, { useState } from 'react'
 
 const App = () => {
