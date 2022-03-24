@@ -7,17 +7,17 @@ const persons = [
   {
     id: 1,
     name: 'Pekka',
-    number: '111'
+    number: '04175895231'
   },
   {
     id: 2,
     name: 'Tiina',
-    number: '112'
+    number: '05001263456'
   },
   {
     id: 3,
     name: 'Jalmari',
-    number: '1111578'
+    number: '08-1111578'
   }
 ]
 
