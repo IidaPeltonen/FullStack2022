@@ -1,30 +1,35 @@
 /* Iida Peltonen 2022 */
 import React, {useState} from 'react'
+import Person from './Person'
 
-const Filter = ({persons}) => {
-    const [wordEntered, setWordEntered] = useState('') //kirjoitettu hakusana
-    const [showAll, setShowAll] = useState(true)
+const Filter = ({ persons, filtPersons }) => {
+    const [haetut, setHaetut] = useState([persons])
 
     function handleFilter (e) {
         const hakusana = e.target.value
-        setWordEntered(hakusana)
-        const NewFilter = persons.forEach((item, index) => {
-            // console.log(item.name)
-        })(value => {
-            return (
-                value.item.name.toLowercase().includes(hakusana.toLowercase())
-            )
-        })
+            if (hakusana != "") {
+                //käydään taulukon nimet läpi ja verrataan
+                persons.forEach((item) => {
+                    let nimi = item.name.toLowerCase()
+                    //jos jo tallennettu nimi sisältään hakusanan
+                    if (nimi.includes(hakusana.toLowerCase())) {
+                        //nämä kaikki pitäisi sisällyttää tauluun, joka näytetään
+                        haetut.push(item)
+                    }
+                    console.log(haetut)
+                }) 
+            }
     }
-        //käydään taulukon nimet läpi ja verrataan
-        persons.forEach((item, index) => {
-            // console.log(item.name)
-        })
      
  return (
     <div>
-         Hae kaveria <input onChange={handleFilter}></input>
-    </div>
+         Hae kaveria <input onChange={handleFilter} />
+         <ul>
+          {persons.map(person =>
+            <Person key={person.id} person={person} />
+          )}
+        </ul>
+   </div>
  )
 }
 

@@ -33,18 +33,16 @@ const UudenLisays = ({ persons, setPersons }) => {
   }
 
   const handlePersonChange = e => {
-    //console.log(e.target.value)
     setNewPerson(e.target.value)
   }
 
   const handleNumberChange = e => {
-    //console.log(e.target.value)
     setNewNumber(e.target.value)
   }
     return (
         <form onSubmit={LisaaUusi}>
-        Nimi: <input value={newPerson} onChange={handlePersonChange} />
-        Numero: <input value={newNumber} onChange={handleNumberChange} />
+        Nimi: <input value={newPerson} onChange={handlePersonChange} /><br />
+        Numero: <input value={newNumber} onChange={handleNumberChange} /><br />
         <button type="submit">Tallenna</button>
     </form>
     )
