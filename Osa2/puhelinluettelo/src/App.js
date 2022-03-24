@@ -6,7 +6,6 @@ import UudenLisays from './components/UudenLisays'
 
 const App = props => {
   const [persons, setPersons] = useState(props.persons) //kaikki tyypit
-  const [newFilter, setNewFilter] = useState('')
 
   return (
     <div>
