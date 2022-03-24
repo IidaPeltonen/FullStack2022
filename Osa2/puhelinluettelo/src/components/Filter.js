@@ -20,6 +20,8 @@ const Filter = ({ persons, filtPersons }) => {
                 }) 
             }
     }
+
+    //tuon retruenin laittaisin tuohon edeltävään ifiin, mutten saa toimimaan niin. ja sitten elseen toinen return, joka palauttaa person-tauöun
      
  return (
     <div>
