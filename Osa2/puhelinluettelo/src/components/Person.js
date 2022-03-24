@@ -1,6 +1,8 @@
+/* Iida Peltonen 2022 */
+
 const Person = ({ person }) => {
     return (
-      <li>{person.content}</li>
+      <li> {person.name} {person.number}</li>
     )
   }
   

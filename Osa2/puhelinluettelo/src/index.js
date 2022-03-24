@@ -1,20 +1,23 @@
+/* Iida Peltonen 2022 */
+
 import ReactDOM from 'react-dom'
 import App from './App'
 
 const persons = [
   {
     id: 1,
-    content: 'Pekka',
+    name: 'Pekka',
+    number: '111'
   },
   {
     id: 2,
-    content: 'Tiina',
-
+    name: 'Tiina',
+    number: '112'
   },
   {
     id: 3,
-    content: 'Jalmari',
-
+    name: 'Jalmari',
+    number: '1111578'
   }
 ]
 
