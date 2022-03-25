@@ -20,7 +20,7 @@ const Maa = ({ maa }) => {
         ))}
       </div>
       <img src={maa.flags.png} />
-      <h3>{maa.capital} tarjoilee tällä hetkellä seuraavanlaista ilmaa: </h3>
+      <h3>{maa.capital} tarjoilee tällä hetkellä seuraavanlaista säätä: </h3>
       <Weather lat={lat} lon={lon} />
     </>
   )
