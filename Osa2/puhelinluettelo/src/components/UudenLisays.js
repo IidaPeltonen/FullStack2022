@@ -1,6 +1,7 @@
 /* Iida Peltonen 2022 */
 
 import { useState } from 'react'
+import axios from 'axios'
 
 const UudenLisays = ({ persons, setPersons }) => {
   const [newPerson, setNewPerson] = useState('') //nimet
@@ -14,6 +15,14 @@ const UudenLisays = ({ persons, setPersons }) => {
       number: newNumber,
       id: persons.length + 1
     }
+
+    axios
+    .post('http://localhost:3001/persons', personObject)
+    .then(response => {
+      setPersons(persons.concat(response.data))
+      setNewPerson('')
+    })
+
 
     //käydän taulukon nimet läpi ja verrataan
     persons.forEach((item, index) => {
@@ -33,6 +42,7 @@ const UudenLisays = ({ persons, setPersons }) => {
     })
   }
 
+
   const handlePersonChange = e => {
     setNewPerson(e.target.value)
   }
@@ -40,6 +50,7 @@ const UudenLisays = ({ persons, setPersons }) => {
   const handleNumberChange = e => {
     setNewNumber(e.target.value)
   }
+
   return (
     <form onSubmit={LisaaUusi}>
       Nimi: <input value={newPerson} onChange={handlePersonChange} />
