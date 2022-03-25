@@ -3,28 +3,15 @@
 import ReactDOM from 'react-dom'
 import App from './App'
 
-const persons = [
-  {
-    id: 1,
-    name: 'Pekka',
-    number: '04175895231'
-  },
-  {
-    id: 2,
-    name: 'Tiina',
-    number: '05001263456'
-  },
-  {
-    id: 3,
-    name: 'Jalmari',
-    number: '08-1111578'
-  }
-]
+import axios from 'axios'
 
-ReactDOM.render(
-  <App persons={persons} />,
-  document.getElementById('root')
-)
+axios.get('http://localhost:3001/persons').then(response => {
+  const persons = response.data
+  ReactDOM.render(
+    <App persons={persons} />,
+    document.getElementById('root')
+  )
+})
 
 
 
