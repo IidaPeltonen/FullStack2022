@@ -1,17 +1,29 @@
 /* Iida Peltonen 2022 */
 
-//näyttää yhden maan tiedot
+import Maa from './Maa'
 
 const Maalista = ({ maa }) => {
+  function HandleClick (maa) {
+    console.log(maa)
     return (
-        <div>
-            <ul>
-                <li key={maa.name.official}>
-                    {maa.name.official}
-                </li>
-            </ul>
-        </div>
+      <div>
+        <Maa key={maa.name.official} maa={maa} />
+      </div>
     )
   }
-  
-  export default Maalista
+
+  return (
+    <div>
+      <ul>
+        <li key={maa.name.official}>
+          {maa.name.official}
+          <button onClick={HandleClick} maa={maa}>
+            Näytä
+          </button>
+        </li>
+      </ul>
+    </div>
+  )
+}
+
+export default Maalista

@@ -34,8 +34,8 @@ const Haku = ({ maat }) => {
           <p>Liikaa hakutuloksia, tarkenna hakua</p>
         </div>
       )}
-      {tulos < 11 && tulos > 0 && wordEntered.length > 0 && (
-        //on haettu jotain, ja tuloksia on 1-10
+      {tulos < 11 && tulos > 1 && wordEntered.length > 0 && (
+        //on haettu jotain, ja tuloksia on 2-10
         <div>
           <ul>
             {filteredData.map(maa => (
