@@ -10,6 +10,7 @@ const Haku = ({ maat }) => {
   const [tulos, setTulos] = useState('')
 
   function handleHaku (e) {
+    e.preventDefault()
     const hakusana = e.target.value
     setWordEntered(hakusana)
     const newFilter = maat.filter(value => {

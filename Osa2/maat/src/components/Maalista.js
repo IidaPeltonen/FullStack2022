@@ -3,17 +3,21 @@
 import { useState } from 'react'
 import Maa from './Maa'
 
+let isClickedMaa = false
+
+
 const Maalista = ({ maa, filteredData }) => {
   const [naytettavaMaa, setNaytettavaMaa] = useState([])
-  let isClicked = false
 
   function HandleClick (maa) {
+    isClickedMaa = true
     setNaytettavaMaa(maa)
-    isClicked = true
   }
 
-  console.log('isClikedin is now:', isClicked)
-  console.log('naytettavaMaa is:', naytettavaMaa)
+  function HandleClickSulje (maa) {
+    isClickedMaa = false
+    setNaytettavaMaa()
+  }
 
   return (
     <div>
@@ -21,9 +25,10 @@ const Maalista = ({ maa, filteredData }) => {
         <li key={maa.name.official}>
           {maa.name.official}
           <button onClick={() => HandleClick(maa)}>Näytä tiedot</button>
+          <button onClick={() => HandleClickSulje(maa)}>Sulje tiedot</button>
         </li>
       </ul>
-      {isClicked && (
+      {isClickedMaa && (
         <div>
           <ul>
             <Maa key={naytettavaMaa.name} maa={naytettavaMaa} />
