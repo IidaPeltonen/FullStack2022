@@ -6,6 +6,8 @@ const Person = ({ person }) => {
 
   const Poista = ( id ) => {
     //tähän tulee poisto
+    console.log(person.id) // tämän idn tyypin tiedot pitää poistaa
+    
   }
   
   return (
