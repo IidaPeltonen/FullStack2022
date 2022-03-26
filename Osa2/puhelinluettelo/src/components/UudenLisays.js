@@ -1,7 +1,7 @@
 /* Iida Peltonen 2022 */
 
 import { useState } from 'react'
-import axios from 'axios'
+import personService from '../services/persons'
 
 const UudenLisays = ({ persons, setPersons }) => {
   const [newPerson, setNewPerson] = useState('') //nimet
@@ -16,12 +16,13 @@ const UudenLisays = ({ persons, setPersons }) => {
       id: persons.length + 1
     }
 
-    axios
-    .post('http://localhost:3001/persons', personObject)
-    .then(response => {
-      setPersons(persons.concat(response.data))
+    personService
+    .create(personObject)
+    .then(returnedPerson => {
+      setPersons(persons.concat(returnedPerson))
       setNewPerson('')
     })
+
 
 
     //käydän taulukon nimet läpi ja verrataan

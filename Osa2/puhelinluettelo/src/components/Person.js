@@ -1,6 +1,6 @@
 /* Iida Peltonen 2022 */
 
-
+import personService from '../services/persons'
 
 const Person = ({ person }) => {
 
