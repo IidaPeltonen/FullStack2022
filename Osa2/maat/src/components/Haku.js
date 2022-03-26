@@ -39,7 +39,7 @@ const Haku = ({ maat }) => {
         <div>
           <ul>
             {filteredData.map(maa => (
-              <Maalista key={maa.name.official} maa={maa} />
+              <Maalista key={maa.name.official} maa={maa} filteredData={filteredData}/>
             ))}
           </ul>
         </div>

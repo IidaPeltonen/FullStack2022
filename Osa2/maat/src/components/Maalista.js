@@ -3,32 +3,33 @@
 import { useState } from 'react'
 import Maa from './Maa'
 
-const Maalista = ({ maa }) => {
-
+const Maalista = ({ maa, filteredData }) => {
   const [naytettavaMaa, setNaytettavaMaa] = useState([])
+  let isClicked = false
 
-  function HandleClick(maa) {
+  function HandleClick (maa) {
     setNaytettavaMaa(maa)
-    //ei vaan toimi, en tajua mitä tähän pitis tunkea, että voisi kutsua Maa-osiota uudella arvolla
-     
-    return (
-      <div>
-        
-        <Maa key={naytettavaMaa.name} maa={naytettavaMaa} />
-      </div>
-    ) 
+    isClicked = true
   }
-console.log(naytettavaMaa.name)
+
+  console.log('isClikedin is now:', isClicked)
+  console.log('naytettavaMaa is:', naytettavaMaa)
+
   return (
     <div>
       <ul>
         <li key={maa.name.official}>
           {maa.name.official}
-          <button onClick={() =>HandleClick(maa)}>
-            Näytä tiedot
-          </button>
+          <button onClick={() => HandleClick(maa)}>Näytä tiedot</button>
         </li>
       </ul>
+      {isClicked && (
+        <div>
+          <ul>
+            <Maa key={naytettavaMaa.name} maa={naytettavaMaa} />
+          </ul>
+        </div>
+      )}
     </div>
   )
 }
