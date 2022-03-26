@@ -4,16 +4,21 @@ import personService from '../services/persons'
 
 const Person = ({ person }) => {
 
-  const Poista = ( id ) => {
-    //tähän tulee poisto
-    console.log(person.id) // tämän idn tyypin tiedot pitää poistaa
+  const Poista = ( person ) => {
+    let vastaus = false
+    vastaus = window.confirm(`Poistetaanko henkilö ${person.name}?`)
+    if (vastaus) {
+      personService.remove(person.id)
+      alert(`${person.name} poistettu`)
+    }
     
-  }
-  
+
+    }
+    
   return (
     <li key={person.id}>
       {' '}
-      {person.name} {person.number} <button onClick={Poista} id={person.id}>Poista</button>
+      {person.name} {person.number} <button onClick={() => Poista(person)}>Poista</button>
     </li>
   )
 }
