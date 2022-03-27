@@ -2,47 +2,73 @@
 
 import { useState } from 'react'
 import personService from '../services/persons'
+import '../css/App.css'
+import Notification from '../components/Notification'
 
 const UudenLisays = ({ persons, setPersons }) => {
   const [newPerson, setNewPerson] = useState('') //nimet
   const [newNumber, setNewNumber] = useState('') //numerot
+  const [success, setSuccess] = useState('')
+  const [error, setError] = useState('')
 
   //uuden lisäys
   const LisaaUusi = e => {
     e.preventDefault()
     const personObject = {
       name: newPerson,
-      number: newNumber,
-      id: persons.length + 1
+      number: newNumber
     }
+    let id
+    let samaNimi = false
 
-    personService
-    .create(personObject)
-    .then(returnedPerson => {
-      setPersons(persons.concat(returnedPerson))
-      setNewPerson('')
-    })
-
-
-
-    //käydän taulukon nimet läpi ja verrataan
+    //käydään taulukon nimet läpi ja verrataan
     persons.forEach((item, index) => {
       //jos sama nimi löytyy
       if (item.name.toLowerCase() === newPerson.toLowerCase()) {
-        alert(newPerson + ' löytyy jo luettelosta!')
-        setPersons(persons.splice(personObject))
-        setNewPerson('')
-        setNewNumber('')
-      }
-      //jos samaa nimeä ei löydy
-      else {
-        setPersons(persons.concat(personObject))
-        setNewPerson('')
-        setNewNumber('')
+        samaNimi = true
+        // vaihdetaan "uuden" idksi vanhan id
+        id = item.id
       }
     })
+    if (samaNimi) {
+      let vastaus = window.confirm(`${newPerson} löytyy jo luettelosta, päivitetäänkö numero?`)
+      if (!vastaus) {
+        setNewPerson('')
+        setNewNumber('')
+      } else {
+        personService
+          .update(id, personObject)
+          .then((returnedPerson) => {
+            setPersons(persons.concat(returnedPerson))
+            setNewPerson('')
+            setNewNumber('')
+              setSuccess(`${returnedPerson.name} n numero päivitetty!`);
+              setTimeout(() => {
+                setSuccess(null);
+                window.location.reload(false);
+              }, 5000);
+            })
+          .catch((error) => {
+            setError(`${newPerson} n tiedot on jo poistettu`)
+            setTimeout(() => {
+              setError(null);
+              window.location.reload(false);
+            }, 5000);
+          })
+      }
+    } else {
+      personService.create(personObject).then(returnedPerson => {
+        setPersons(persons.concat(returnedPerson))
+        setNewPerson('')
+        setNewNumber('')
+        setSuccess(newPerson + 'n numero tallennettu')
+        setTimeout(() => {
+          setSuccess(null);
+          window.location.reload(false);
+        }, 5000);
+      })
+    }
   }
-
 
   const handlePersonChange = e => {
     setNewPerson(e.target.value)
@@ -54,6 +80,7 @@ const UudenLisays = ({ persons, setPersons }) => {
 
   return (
     <form onSubmit={LisaaUusi}>
+      <Notification message={success} message2={error} />
       Nimi: <input value={newPerson} onChange={handlePersonChange} />
       <br />
       Numero: <input value={newNumber} onChange={handleNumberChange} />
