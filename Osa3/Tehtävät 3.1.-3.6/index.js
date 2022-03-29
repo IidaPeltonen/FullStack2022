@@ -3,7 +3,7 @@ const app = express()
 
 app.use(express.json())
 
-let notes = [
+let persons = [
   {
     id: 1,
     name: 'Pentti Hirvonen',
@@ -23,7 +23,7 @@ let notes = [
 
 app.get('/api/persons/:id', (request, response) => {
   const id = Number(request.params.id)
-  const note = notes.find(note => note.id === id)
+  const person = persons.find(person => person.id === id)
 
   if (person) {
     response.json(note)
@@ -33,17 +33,17 @@ app.get('/api/persons/:id', (request, response) => {
 })
 
 app.get('/api/persons', (req, res) => {
-  res.json(notes)
+  res.json(persons)
 })
 
-app.delete('/api/persons/:id', (request, response) => {
+/* app.delete('/api/persons/:id', (request, response) => {
   const id = Number(request.params.id)
   persons = persons.filter(note => person.id !== id)
   response.status(204).end()
 })
 
 const generateId = () => {
-    const maxId = notes.length > 0
+    const maxId = persons.length > 0
       ? Math.max(...notes.map(n => n.id))
       : 0
     return maxId + 1
@@ -66,6 +66,13 @@ const generateId = () => {
   
     persons = persons.concat(person)
     response.json(person)
+}) */
+
+app.get("/info", (request, response) => {
+  response.send(
+    `<p>Phonebook has info over  ${persons.length}  people </p>
+    <p> ${new Date().toString()} </p>`
+  )
 })
 
 const PORT = 3001
