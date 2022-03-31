@@ -2,11 +2,6 @@ const express = require('express')
 const morgan = require("morgan");
 const app = express()
 
-app.use(express.json())
-app.use(
-  morgan('tiny')
-)
-
 let persons = [
   {
     id: 1,
@@ -34,6 +29,10 @@ let persons = [
     number: "050140"
   },
 ]
+
+app.use(
+  morgan('tiny')
+)
 
 //haku id-numerolla
 app.get('/api/persons/:id', (request, response) => {
