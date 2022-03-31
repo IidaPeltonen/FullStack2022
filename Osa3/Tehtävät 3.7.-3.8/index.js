@@ -1,6 +1,14 @@
 const express = require('express')
-const morgan = require("morgan");
+const morgan = require('morgan')
 const app = express()
+app.use(express.json())
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :type'))
+
+morgan.token("type", (req, res) => JSON.stringify(req.body));
+
+morgan.token("param", function (req, res, param) {
+  return req.params[param];
+});
 
 let persons = [
   {
@@ -29,10 +37,6 @@ let persons = [
     number: "050140"
   },
 ]
-
-app.use(
-  morgan('tiny')
-)
 
 //haku id-numerolla
 app.get('/api/persons/:id', (request, response) => {
@@ -69,7 +73,8 @@ const generateId = () => {
   }
   
   //uuden luonti
-  app.post('/api/persons', (request, response) => {
+  app.post('/api/persons', (request, response, next) => {
+    console.log('body', request.body)
     const body = request.body
   
     //jos uudelle hlöllä ei ole nimeä
@@ -102,6 +107,10 @@ const generateId = () => {
     
       persons = persons.concat(person)
       response.json(person)
+  })
+
+  morgan.token('param', function(req, res, param) {
+    console.log(req.params[param], persons) 
   })
 })
 
