@@ -5,20 +5,20 @@ import Filter from './components/Filter'
 import personService from './services/persons'
 import Notification from './components/Notification'
 
-const App = props => {
-  const [persons, setPersons] = useState(props.persons) //kaikki tyypit
+const App = () => {
+  const [persons, setPersons] = useState([]) //kaikki tyypit
   const [newPerson, setNewPerson] = useState('') //nimet
   const [newNumber, setNewNumber] = useState('') //numerot
   const [success, setSuccess] = useState('')
   const [error, setError] = useState('')
 
-/*   useEffect(() => {
+   useEffect(() => {
     personService
       .getAll()
       .then(initialPersons => {
         setPersons(initialPersons)
       })
-  }, []) */
+  }, []) 
 
     //uuden lisäys
     const LisaaUusi = e => {
@@ -39,12 +39,12 @@ const App = props => {
           id = item.id
         }
       })
-      
+
       if (samaNimi) {
         let vastaus = window.confirm(`${newPerson} löytyy jo luettelosta, päivitetäänkö numero?`)
         if (!vastaus) {
           setNewPerson('')
-          setNewNumber('')
+          setNewNumber('') 
         } else {
           personService
             .update(id, personObject)
