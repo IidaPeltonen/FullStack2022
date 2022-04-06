@@ -14,6 +14,10 @@ const Person = ({ person }) => {
     if (vastaus) {
       personService.remove(person.id)
       setSuccess(`${person.name} poistettu luettelosta`)
+      setTimeout(() => {
+        setSuccess(null);
+        window.location.reload(false);
+      }, 5000);
     }
   }
 

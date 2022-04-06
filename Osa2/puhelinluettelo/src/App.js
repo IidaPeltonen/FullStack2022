@@ -12,13 +12,13 @@ const App = props => {
   const [success, setSuccess] = useState('')
   const [error, setError] = useState('')
 
-  useEffect(() => {
+/*   useEffect(() => {
     personService
       .getAll()
       .then(initialPersons => {
         setPersons(initialPersons)
       })
-  }, [])
+  }, []) */
 
     //uuden lisäys
     const LisaaUusi = e => {
@@ -39,6 +39,7 @@ const App = props => {
           id = item.id
         }
       })
+      
       if (samaNimi) {
         let vastaus = window.confirm(`${newPerson} löytyy jo luettelosta, päivitetäänkö numero?`)
         if (!vastaus) {
@@ -66,11 +67,13 @@ const App = props => {
             })
         }
       } else {
-        personService.create(personObject).then(returnedPerson => {
+        personService
+        .create(personObject)
+        .then(returnedPerson => {
           setPersons(persons.concat(returnedPerson))
           setNewPerson('')
           setNewNumber('')
-          setSuccess(newPerson + 'n numero tallennettu')
+          setSuccess(newPerson + ' lisätty luetteloon')
           setTimeout(() => {
             setSuccess(null);
             window.location.reload(false);
