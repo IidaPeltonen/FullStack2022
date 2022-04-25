@@ -2,7 +2,7 @@
 
 const mongoose = require('mongoose')
 
-const url = process.env.MONGODB_URI
+const url = `mongodb+srv://fullstack:fullstack2022@cluster0.0sxpk.mongodb.net/blogApp?retryWrites=true&w=majority`
 console.log(url)
 
 console.log('connecting to', url)
@@ -20,17 +20,17 @@ const blogSchema = new mongoose.Schema({
   title: {
     type: String,
     minLength: 3,
-    required: true
+    // required: true
   },
   author: {
     type: String,
     minLength: 5,
-    required: true
+    // required: true
   },
   url: {
     type: String,
     minLength: 10,
-    required: true
+    // required: true
   },
   likes: {
     type: Number,
