@@ -2,36 +2,40 @@
 
 import { useState, useEffect } from 'react'
 import Filter from './components/Filter'
-import personService from './services/persons'
+import blogService from './services/blogs'
 import Notification from './components/Notification'
 
 const App = () => {
-  const [persons, setPersons] = useState([]) //kaikki tyypit
-  const [newPerson, setNewPerson] = useState('') //nimet
-  const [newNumber, setNewNumber] = useState('') //numerot
+  const [blogs, setBlogs] = useState([]) //kaikki blogit
+  const [newTitle, setNewTitle] = useState('') //nimi
+  const [newAuthor, setNewAuthor] = useState('') //tekijä
+  const [newUrl, setNewUrl] = useState('') //osoite
+  const [newLikes, setNewLikes] = useState('') //tykkäykset
   const [success, setSuccess] = useState('')
   const [error, setError] = useState('')
 
   useEffect(() => {
-    personService.getAll().then(initialPersons => {
-      setPersons(initialPersons)
+    blogService.getAll().then(initialBlogs => {
+      setBlogs(initialBlogs)
     })
   }, [])
 
   //uuden lisäys
   const LisaaUusi = e => {
     e.preventDefault()
-    const personObject = {
-      name: newPerson,
-      number: newNumber
+    const blogObject = {
+      title: newTitle,
+      author: newAuthor,
+      url: newUrl,
+      likes: newLikes
     }
     let id
     let samaNimi = false
 
     //käydään taulukon nimet läpi ja verrataan
-    persons.forEach((item, index) => {
+    blogs.forEach((item, index) => {
       //jos sama nimi löytyy
-      if (item.name.toLowerCase() === newPerson.toLowerCase()) {
+      if (item.title.toLowerCase() === newTitle.toLowerCase()) {
         samaNimi = true
         // vaihdetaan "uuden" idksi vanhan id
         id = item.id
@@ -40,19 +44,23 @@ const App = () => {
 
     if (samaNimi) {
       let vastaus = window.confirm(
-        `${newPerson} löytyy jo luettelosta, päivitetäänkö numero?`
+        `${newBlog} löytyy jo luettelosta, päivitetäänkö blogin tiedot?`
       )
       if (!vastaus) {
-        setNewPerson('')
-        setNewNumber('')
+        setNewTitle('')
+        setNewAuthor('')
+        setNewUrl('')
+        setNewLikes('')
       } else {
-        personService
-          .update(id, personObject)
-          .then(returnedPerson => {
-            setPersons(persons.concat(returnedPerson))
-            setNewPerson('')
-            setNewNumber('')
-            setSuccess(`${returnedPerson.name} n numero päivitetty!`)
+        blogService
+          .update(id, blogObject)
+          .then(returnedBlog => {
+            setBlogs(blogs.concat(returnedBlog))
+            setNewTitle('')
+            setNewAuthor('')
+            setNewUrl('')
+            setNewLikes('')
+            setSuccess(`${returnedBlog.name} tiedot päivitetty!`)
             setTimeout(() => {
               setSuccess(null)
               window.location.reload(false)
@@ -70,13 +78,15 @@ const App = () => {
     } 
     //jos nimi on oikeasti uusi
     else {
-      personService
-        .create(personObject)
-        .then(returnedPerson => {
-        setPersons(persons.concat(returnedPerson))
-        setNewPerson('')
-        setNewNumber('')
-        setSuccess(newPerson + ' lisätty luetteloon')
+      blogService
+        .create(blogObject)
+        .then(returnedBlog => {
+        setBlogs(blogs.concat(returnedBlog))
+        setNewTitle('')
+        setNewAuthor('')
+        setNewUrl('')
+        setNewLikes('')
+        setSuccess(newBlog + ' lisätty luetteloon')
         setTimeout(() => {
           setSuccess(null)
           window.location.reload(false)
@@ -93,24 +103,36 @@ const App = () => {
     }
   }
 
-  const handlePersonChange = e => {
-    setNewPerson(e.target.value)
+  const handleTitleChange = e => {
+    setNewTitle(e.target.value)
   }
 
-  const handleNumberChange = e => {
-    setNewNumber(e.target.value)
+  const handleAuthorChange = e => {
+    setNewAuthor(e.target.value)
+  }
+
+  const handleUrlChange = e => {
+    setNewUrl(e.target.value)
+  }
+
+  const handleLikesChange = e => {
+    setNewLikes(e.target.value)
   }
 
   return (
     <div>
-      <h1>Puhelinluettelo</h1>
-      <Filter persons={persons} />
-      <h2>Tallenna uusi</h2>
+      <h1>Blogilista</h1>
+      <Filter blogs={blogs} />
+      <h2>Lisää uuden blogin tiedot</h2>
       <form onSubmit={LisaaUusi}>
         <Notification message={success} message2={error} />
-        Nimi: <input value={newPerson} onChange={handlePersonChange} />
+        Title: <input value={newTitle} onChange={handleTitleChange} />
         <br />
-        Numero: <input value={newNumber} onChange={handleNumberChange} />
+        Author: <input value={newAuthor} onChange={handleAuthorChange} />
+        <br />
+        Url: <input value={newUrl} onChange={handleUrlChange} />
+        <br />
+        Likes: <input value={newLikes} onChange={handleLikesChange} />
         <br />
         <button type='submit'>Tallenna</button>
       </form>

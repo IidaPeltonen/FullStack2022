@@ -3,7 +3,7 @@ Content-Type: application/json
 
 {
     "name": "Lotta Karjalainen",
-    "number": "04511111"
+    "number": "04511111",
     "title": "Kissablogi", 
     "author": "Iida Peltonen",
     "url": "www.kissoja.fi",

@@ -1,16 +1,16 @@
 /* Iida Peltonen 2022 */
 
 import React, { useState } from 'react'
-import Person from './Person'
+import Blog from './Blog'
 
-const Filter = ({ persons }) => {
+const Filter = ({ blogs }) => {
   const [wordEntered, setWordEntered] = useState('')
-  const [filteredData, setFilteredData] = useState([persons])
+  const [filteredData, setFilteredData] = useState([blogs])
 
   function handleFilter (e) {
     const hakusana = e.target.value
     setWordEntered(hakusana)
-    const newFilter = persons.filter(value => {
+    const newFilter = blogs.filter(value => {
       return value.name.toLowerCase().includes(hakusana.toLowerCase())
     })
     setFilteredData(newFilter)
@@ -22,8 +22,8 @@ const Filter = ({ persons }) => {
       {wordEntered.length !== 0 && (
         <div>
           <ul>
-            {filteredData.map(person => (
-              <Person key={person.id} person={person} />
+            {filteredData.map(blog => (
+              <Blog key={blog.id} blog={blog} />
             ))}
           </ul>
         </div>
@@ -31,8 +31,8 @@ const Filter = ({ persons }) => {
       {wordEntered.length === 0 && (
         <div>
           <ul>
-            {persons.map(person => (
-              <Person key={person.id} person={person} />
+            {blogs.map(blog => (
+              <Blog key={blog.id} blog={blog} />
             ))}
           </ul>
         </div>
