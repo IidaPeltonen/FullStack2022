@@ -3,7 +3,6 @@
 const mongoose = require('mongoose')
 
 const url = `mongodb+srv://fullstack:fullstack2022@cluster0.0sxpk.mongodb.net/blogApp?retryWrites=true&w=majority`
-console.log(url)
 
 console.log('connecting to', url)
 

@@ -31,20 +31,22 @@ app.post('/api/blogs', (request, response, next) => {
     .then(result => {
       //tarkistetaan onko nimi jo luettelossa
       const checkBlogs = result.some(
-        findBlog => findBlog.name.toLowerCase() === body.name.toLowerCase()
+        findBlog => findBlog.title.toLowerCase() === body.title.toLowerCase()
       )
 
       //jos on
       if (checkBlogs) {
         return response.status(400).json({
-          error: 'Nimi on jo luettelossa!'
+          error: 'Blogi on jo luettelossa!'
         })
       }
       //jos ei
       else {
         const newBlog = new Blog({
-          name: body.name,
-          number: body.number
+          title: body.title,
+          author: body.author,
+          url: body.url,
+          likes: body.likes
         })
         newBlog
           .save()
