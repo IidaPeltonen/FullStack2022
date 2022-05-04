@@ -1,42 +1,19 @@
+/* eslint-disable linebreak-style */
 /* Iida Peltonen 2022 */
 
 const mongoose = require('mongoose')
 
-const url = `mongodb+srv://fullstack:fullstack2022@cluster0.0sxpk.mongodb.net/blogApp?retryWrites=true&w=majority`
-
-console.log('connecting to', url)
-
-mongoose
-  .connect(url)
-  .then(result => {
-    console.log('connected to MongoDB')
-  })
-  .catch(error => {
-    console.log('error connecting to MongoDB:', error.message)
-  })
-
-const blogSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    minLength: 3,
-    // required: true
-  },
-  author: {
-    type: String,
-    minLength: 5,
-    // required: true
-  },
-  url: {
-    type: String,
-    minLength: 10,
-    // required: true
-  },
-  likes: {
-    type: Number,
-  },
+const blogSchema = mongoose.Schema({
+  title: String,
+  author: String,
+  url: String,
+  likes: Number,
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }
 })
 
-//tämä muokkaa mongoosen olio-id:n stringiksi
 blogSchema.set('toJSON', {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString()
