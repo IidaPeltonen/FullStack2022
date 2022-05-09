@@ -1,18 +1,21 @@
+/* Iida Peltonen 2022 */
+
 import { useState, useEffect } from 'react'
 
 import Blog from './components/Blog'
+import Notification from './components/Notification'
 import blogService from './services/blogs'
 import loginService from './services/login'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
-  const [newBlog, setNewBlog] = useState('')
   const [newTitle, setNewTitle] = useState('') //nimet
   const [newAuthor, setNewAuthor] = useState('') //kirjoittajat
   const [newUrl, setNewUrl] = useState('') //osoitteet
   const [newLikes, setNewLikes] = useState('') //tykkäykset
+  const [errorMessage, setErrorMessage] = useState(null)
   const [username, setUsername] = useState('')
-  const [passwd, setPasswd] = useState('')
+  const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
 
   useEffect(() => {
@@ -33,11 +36,11 @@ const App = () => {
   }, [])
 
   //muuttuja kirjautumisen hallintaan
-  const handleLogin = async event => {
+  const handleLogin = async (event) => {
     event.preventDefault()
     try {
       const user = await loginService.login({
-        username, passwd
+        username, password
       })
       setUser(user)
       blogService.setToken(user.token)
@@ -45,9 +48,12 @@ const App = () => {
         'loggedBlogappUser', JSON.stringify(user)
       ) 
       setUsername('')
-      setPasswd('')
+      setPassword('')
     } catch (exception) {
-      alert('Wrong credentials')
+      setErrorMessage('Wrong credentials')
+      setTimeout(() => {
+      setErrorMessage(null)
+      }, 5000)
     }
   }
 
@@ -76,8 +82,20 @@ const App = () => {
       })
   }
 
-  const handleBlogChange = (event) => {
-    setNewBlog(event.target.value)
+  const handleTitleChange = (event) => {
+    setNewTitle(event.target.value)
+  }
+
+  const handleAuthorChange = (event) => {
+    setNewAuthor(event.target.value)
+  }
+
+  const handleUrlChange = (event) => {
+    setNewUrl(event.target.value)
+  }
+
+  const handleLikesChange = (event) => {
+    setNewLikes(event.target.value)
   }
 
   const loginForm = () => (
@@ -94,43 +112,77 @@ const App = () => {
       <div>
         Password
         <input
-          type='passwd'
-          value={passwd}
+          type='password'
+          value={password}
           name='Password'
-          onChange={({ target }) => setPasswd(target.value)}
+          onChange={({ target }) => setPassword(target.value)}
         />
       </div>
-      <button type='submit'>login</button>
+      <button type='submit'>Login</button>
     </form>
   )
 
   const blogForm = () => (
     <form onSubmit={addBlog}>
-      <input 
-        value={newBlog} 
-        onChange={handleBlogChange} 
-      />
+      <div>
+      Title
+        <input 
+          type='text'
+          value={newTitle} 
+          name='title'
+          onChange={handleTitleChange} 
+        />
+      </div>
+      <div>
+      Author
+        <input 
+          type='text'
+          value={newAuthor} 
+          name='author'
+          onChange={handleAuthorChange} 
+        />
+      </div>
+      <div>
+      Url
+        <input 
+          type='text'
+          value={newUrl} 
+          name='url'
+          onChange={handleUrlChange} 
+        />
+      </div>
+      <div>
+      Likes
+        <input 
+          type='number'
+          value={newLikes} 
+          name='authir'
+          onChange={handleLikesChange} 
+        />
+      </div>
       <button type='submit'>Save</button>
     </form>
   )
   
+  
 return (
   <div>
     <h1>BLOGS</h1>
+    <Notification message={errorMessage} />
 
     {user === null ?
       loginForm() :
       <div>
-        <p>{user.name} logged in</p>
-      {blogForm()}
+        <p>{user.username} logged in</p>
+        {blogForm()}
       </div>
+      
     }
 
-
-      <div>
-        {blogs.map(blog => (
-          <Blog key={blog.id} blog={blog} />
-        ))}
+    <div>
+      {blogs.map(blog => (
+        <Blog key={blog.id} blog={blog} />
+      ))}
       </div>
     </div>
   )
