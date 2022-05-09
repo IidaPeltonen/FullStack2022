@@ -1,0 +1,11 @@
+/* Iida Peltonen 2022 */
+
+  
+  .error {
+    color: red;
+    font-size: 25px;
+    border-style: none;
+    border-radius: 10px;
+    padding: 5px;
+    margin-bottom: 10px;
+  }

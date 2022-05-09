@@ -1,8 +1,10 @@
 /* Iida Peltonen 2022 */
 
+import '../css/App.css'
+
 const Blog = ({blog}) => (
   <div>
-    {blog.title} {blog.author} {blog.author} {blog.url} {blog.likes} 
+    <b>{blog.title}</b> by: {blog.author} <a href='{blog.url}'>{blog.url}</a> Likes: {blog.likes} 
   </div>  
 )
 

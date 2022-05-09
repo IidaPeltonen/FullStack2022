@@ -6,6 +6,7 @@ import Blog from './components/Blog'
 import Notification from './components/Notification'
 import blogService from './services/blogs'
 import loginService from './services/login'
+import './css/App.css'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -53,6 +54,8 @@ const App = () => {
       setErrorMessage('Wrong credentials')
       setTimeout(() => {
       setErrorMessage(null)
+      setUsername('')
+      setPassword('')
       }, 5000)
     }
   }
@@ -71,14 +74,20 @@ const App = () => {
       .create(blogObject)
       .then(returnedBlog => {
         setBlogs(blogs.concat(returnedBlog))
-        setNewTitle('')
-        setNewAuthor('')
-        setNewUrl('')
-        setNewLikes('')
-        console.log('Lisäys onnistui')
+        setErrorMessage('Blog added')
+        setTimeout(() => {
+          setErrorMessage(null)
+          setNewTitle('')
+          setNewAuthor('')
+          setNewUrl('')
+          setNewLikes('')
+          }, 5000)
       })
       .catch(error => {
-        console.log(error.response.data)
+        setErrorMessage(error.response.data)
+        setTimeout(() => {
+          setErrorMessage(null)
+          }, 5000)
       })
   }
 
@@ -96,6 +105,13 @@ const App = () => {
 
   const handleLikesChange = (event) => {
     setNewLikes(event.target.value)
+  }
+
+  const logOut = () => {
+    window.localStorage.removeItem(
+      'loggedBlogappUser'
+    )
+    window.location.reload(false)
   }
 
   const loginForm = () => (
@@ -160,6 +176,7 @@ const App = () => {
           onChange={handleLikesChange} 
         />
       </div>
+      <br  />
       <button type='submit'>Save</button>
     </form>
   )
@@ -173,18 +190,18 @@ return (
     {user === null ?
       loginForm() :
       <div>
-        <p>{user.username} logged in</p>
+        <p>Logged in as {user.username} 
+        <button onClick={logOut}>Logout</button></p>
         {blogForm()}
+        <br />
+        <div>
+          {blogs.map(blog => (
+            <Blog key={blog.id} blog={blog} />
+          ))}
+        </div>
       </div>
-      
     }
-
-    <div>
-      {blogs.map(blog => (
-        <Blog key={blog.id} blog={blog} />
-      ))}
-      </div>
-    </div>
+  </div>
   )
 }
 
