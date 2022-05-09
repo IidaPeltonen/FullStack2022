@@ -27,6 +27,8 @@ const App = () => {
       })
   }, [])
 
+  //BLOGFROM SEURAAVAKSI NÄKYMÄÄN VAIN, JOS KÄYTTÄJÄ ON PAINANUT "ADD BLOG"
+
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
     if (loggedUserJSON) {
