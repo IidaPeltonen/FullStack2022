@@ -1,41 +1,17 @@
 /* Iida Peltonen 2022 */
 
-import { useState } from 'react'
-
 //uuden lisäys
-const BlogForm = ({ uusiBlogi }) => {
-  const [newTitle, setNewTitle] = useState('') //nimet
-  const [newAuthor, setNewAuthor] = useState('') //kirjoittajat
-  const [newUrl, setNewUrl] = useState('') //osoitteet
-  const [newLikes, setNewLikes] = useState('') //tykkäykset
-
-  const handleTitleChange = event => {
-    setNewTitle(event.target.value)
-  }
-
-  const handleAuthorChange = event => {
-    setNewAuthor(event.target.value)
-  }
-
-  const handleUrlChange = event => {
-    setNewUrl(event.target.value)
-  }
-
-  const handleLikesChange = event => {
-    setNewLikes(event.target.value)
-  }
-
-  const addBlog = (event) => {
-    event.preventDefault()
-    const blogObject = {
-        title: newTitle,
-        author: newAuthor,
-        url: newUrl,
-        likes: newLikes
-    }
-
-    uusiBlogi(blogObject)
-}
+const BlogForm = ({ 
+  addBlog,
+  newTitle,
+  newAuthor,
+  newUrl,
+  newLikes,
+  handleTitleChange,
+  handleAuthorChange,
+  handleUrlChange,
+  handleLikesChange
+ }) => {
 
 return(
     <div>

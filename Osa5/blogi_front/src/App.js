@@ -21,6 +21,7 @@ const App = () => {
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
   const [uusi, setUusi] = useState(null)
+ 
 
   useEffect(() => {
     blogService
@@ -95,6 +96,22 @@ const App = () => {
       })
   }
 
+  const handleTitleChange = event => {
+    setNewTitle(event.target.value)
+  }
+
+  const handleAuthorChange = event => {
+    setNewAuthor(event.target.value)
+  }
+
+  const handleUrlChange = event => {
+    setNewUrl(event.target.value)
+  }
+
+  const handleLikesChange = event => {
+    setNewLikes(event.target.value)
+  }
+
   const logOut = () => {
     window.localStorage.removeItem(
       'loggedBlogappUser'
@@ -126,49 +143,6 @@ const App = () => {
     </form>
   )
 
-/*   const blogForm = () => (
-    <form onSubmit={addBlog}>
-      <div>
-      Title
-        <input 
-          type='text'
-          value={newTitle} 
-          name='title'
-          onChange={handleTitleChange} 
-        />
-      </div>
-      <div>
-      Author
-        <input 
-          type='text'
-          value={newAuthor} 
-          name='author'
-          onChange={handleAuthorChange} 
-        />
-      </div>
-      <div>
-      Url
-        <input 
-          type='text'
-          value={newUrl} 
-          name='url'
-          onChange={handleUrlChange} 
-        />
-      </div>
-      <div>
-      Likes
-        <input 
-          type='number'
-          value={newLikes} 
-          name='authir'
-          onChange={handleLikesChange} 
-        />
-      </div>
-      <br  />
-      <button type='submit'>Save</button>
-    </form>
-  ) */
-  
   
 return (
   <div>
@@ -180,31 +154,32 @@ return (
       <div>
         <p>Logged in as {user.username} 
         <button onClick={logOut}>Logout</button></p>
-        {uusi === null ?
-          <div>
-            <Togglable buttonLabel='Add new blog'>
-              <BlogForm
-                newTitle={newTitle}
-                newAuthor={newAuthor}
-                newUrl={newUrl}
-                newLikes={newLikes}
-                handleTitleChange={handleTitleChange}
-                handleAuthorChange={handleAuthorChange}
-                handleUrlChange={handleUrlChange}
-                handleLikesChange={handleLikesChange}
-                addBlog={addBlog}
-              />
-            </Togglable> :
-            <div>
-              {blogs.map(blog => (
-                <Blog key={blog.id} blog={blog} />
-              ))}
+
+      {uusi === null ?
+        <Togglable buttonLabel='Add new blog'>
+          <BlogForm
+            newTitle={newTitle}
+            newAuthor={newAuthor}
+            newUrl={newUrl}
+            newLikes={newLikes}
+            handleTitleChange={handleTitleChange}
+            handleAuthorChange={handleAuthorChange}
+            handleUrlChange={handleUrlChange}
+            handleLikesChange={handleLikesChange}
+            addBlog={addBlog}
+          />
+        </Togglable> :
+        <div>
+          {blogs.map(blog => (
+            <Blog key={blog.id} blog={blog} />
+          ))}
+        </div>
+      }  
             </div>
-          </div>
-        }
-    </div>
-    }
+}
   </div>
+
+
   )
 }
 
