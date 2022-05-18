@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 
 import Blog from './components/Blog'
+import BlogForm from './components/BlogForm'
 import Notification from './components/Notification'
 import blogService from './services/blogs'
 import loginService from './services/login'
@@ -27,7 +28,6 @@ const App = () => {
       })
   }, [])
 
-  //BLOGFROM SEURAAVAKSI NÄKYMÄÄN VAIN, JOS KÄYTTÄJÄ ON PAINANUT "ADD BLOG"
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 /* Iida Peltonen 2022 */
 
 import axios from 'axios'
