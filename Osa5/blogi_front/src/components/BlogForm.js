@@ -44,8 +44,10 @@ return(
           name="likes"
           value={newLikes}
           onChange={handleLikesChange}
-        /><br></br>
-        <button type="submit">create</button>
+        />
+        <br />
+        <br />
+        <button type="submit">Create</button>
       </form>
     </div>
   )

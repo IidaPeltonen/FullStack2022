@@ -21,16 +21,12 @@ const App = () => {
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
   const [uusi, setUusi] = useState(null)
- 
 
   useEffect(() => {
-    blogService
-      .getAll()
-      .then(initialBlogs => {
-        setBlogs(initialBlogs)
-      })
+    blogService.getAll().then(initialBlogs => {
+      setBlogs(initialBlogs)
+    })
   }, [])
-
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem('loggedBlogappUser')
@@ -42,25 +38,24 @@ const App = () => {
   }, [])
 
   //muuttuja kirjautumisen hallintaan
-  const handleLogin = async (event) => {
+  const handleLogin = async event => {
     event.preventDefault()
     try {
       const user = await loginService.login({
-        username, password
+        username,
+        password
       })
       setUser(user)
       blogService.setToken(user.token)
-      window.localStorage.setItem(
-        'loggedBlogappUser', JSON.stringify(user)
-      ) 
+      window.localStorage.setItem('loggedBlogappUser', JSON.stringify(user))
       setUsername('')
       setPassword('')
     } catch (exception) {
       setErrorMessage('Wrong credentials')
       setTimeout(() => {
-      setErrorMessage(null)
-      setUsername('')
-      setPassword('')
+        setErrorMessage(null)
+        setUsername('')
+        setPassword('')
       }, 5000)
     }
   }
@@ -86,13 +81,14 @@ const App = () => {
           setNewAuthor('')
           setNewUrl('')
           setNewLikes('')
-          }, 5000)
+          setUusi(null) //piilottaa lomakkeen uuden lisäyksen jälkeen
+        }, 5000)
       })
       .catch(error => {
         setErrorMessage(error.response.data)
         setTimeout(() => {
           setErrorMessage(null)
-          }, 5000)
+        }, 5000)
       })
   }
 
@@ -113,9 +109,7 @@ const App = () => {
   }
 
   const logOut = () => {
-    window.localStorage.removeItem(
-      'loggedBlogappUser'
-    )
+    window.localStorage.removeItem('loggedBlogappUser')
     window.location.reload(false)
   }
 
@@ -143,43 +137,48 @@ const App = () => {
     </form>
   )
 
-  
-return (
-  <div>
-    <h1>BLOGS</h1>
-    <Notification message={errorMessage} />
+  console.log('user: ', user)
+  console.log('uusi: ', uusi)
 
-    {user === null ?
-      loginForm() :
-      <div>
-        <p>Logged in as {user.username} 
-        <button onClick={logOut}>Logout</button></p>
+  return (
+    <div>
+      <h1>BLOGS</h1>
+      <Notification message={errorMessage} />
 
-      {uusi === null ?
-        <Togglable buttonLabel='Add new blog'>
-          <BlogForm
-            newTitle={newTitle}
-            newAuthor={newAuthor}
-            newUrl={newUrl}
-            newLikes={newLikes}
-            handleTitleChange={handleTitleChange}
-            handleAuthorChange={handleAuthorChange}
-            handleUrlChange={handleUrlChange}
-            handleLikesChange={handleLikesChange}
-            addBlog={addBlog}
-          />
-        </Togglable> :
+      {user === null ? (
+        loginForm()
+      ) : (
         <div>
+          <p>
+            Logged in as {user.username}
+            <button onClick={logOut}>Logout</button>
+          </p>
+
+          {uusi === null ? (
+            <Togglable buttonLabel='Add new blog'>
+              <BlogForm
+                newTitle={newTitle}
+                newAuthor={newAuthor}
+                newUrl={newUrl}
+                newLikes={newLikes}
+                handleTitleChange={handleTitleChange}
+                handleAuthorChange={handleAuthorChange}
+                handleUrlChange={handleUrlChange}
+                handleLikesChange={handleLikesChange}
+                addBlog={addBlog}
+              />
+            </Togglable>
+            
+          ) : (
+            <div></div>
+          )}
+          <br />
           {blogs.map(blog => (
             <Blog key={blog.id} blog={blog} />
           ))}
         </div>
-      }  
-            </div>
-}
-  </div>
-
-
+      )}
+    </div>
   )
 }
 
