@@ -1,6 +1,6 @@
 /* Iida Peltonen 2022 */
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 
 //uuden lisäys
 const BlogForm = ({ uusiBlogi }) => {

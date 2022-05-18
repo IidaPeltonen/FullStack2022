@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react'
 import Blog from './components/Blog'
 import BlogForm from './components/BlogForm'
 import Notification from './components/Notification'
+import Togglable from './components/Togglable'
 import blogService from './services/blogs'
 import loginService from './services/login'
 import './css/App.css'
@@ -19,6 +20,7 @@ const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
+  const [uusi, setUusi] = useState(null)
 
   useEffect(() => {
     blogService
@@ -93,22 +95,6 @@ const App = () => {
       })
   }
 
-  const handleTitleChange = (event) => {
-    setNewTitle(event.target.value)
-  }
-
-  const handleAuthorChange = (event) => {
-    setNewAuthor(event.target.value)
-  }
-
-  const handleUrlChange = (event) => {
-    setNewUrl(event.target.value)
-  }
-
-  const handleLikesChange = (event) => {
-    setNewLikes(event.target.value)
-  }
-
   const logOut = () => {
     window.localStorage.removeItem(
       'loggedBlogappUser'
@@ -140,7 +126,7 @@ const App = () => {
     </form>
   )
 
-  const blogForm = () => (
+/*   const blogForm = () => (
     <form onSubmit={addBlog}>
       <div>
       Title
@@ -181,7 +167,7 @@ const App = () => {
       <br  />
       <button type='submit'>Save</button>
     </form>
-  )
+  ) */
   
   
 return (
@@ -194,14 +180,29 @@ return (
       <div>
         <p>Logged in as {user.username} 
         <button onClick={logOut}>Logout</button></p>
-        {blogForm()}
-        <br />
-        <div>
-          {blogs.map(blog => (
-            <Blog key={blog.id} blog={blog} />
-          ))}
-        </div>
-      </div>
+        {uusi === null ?
+          <div>
+            <Togglable buttonLabel='Add new blog'>
+              <BlogForm
+                newTitle={newTitle}
+                newAuthor={newAuthor}
+                newUrl={newUrl}
+                newLikes={newLikes}
+                handleTitleChange={handleTitleChange}
+                handleAuthorChange={handleAuthorChange}
+                handleUrlChange={handleUrlChange}
+                handleLikesChange={handleLikesChange}
+                addBlog={addBlog}
+              />
+            </Togglable> :
+            <div>
+              {blogs.map(blog => (
+                <Blog key={blog.id} blog={blog} />
+              ))}
+            </div>
+          </div>
+        }
+    </div>
     }
   </div>
   )
