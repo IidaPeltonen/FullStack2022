@@ -93,13 +93,12 @@ const App = () => {
   }
 
     //vanhan päivitys
-    const updateBlog = event => {
+    const updateBlog = (event) => {
       event.preventDefault()
-      let id = Blog.id //how to get here the id of the blog, of witch button i pressed?
-      
+
       console.log('id:' , id)
       const blogObject = {
-        id: id,
+        id: 1,
         title: newTitle,
         author: newAuthor,
         url: newUrl,
@@ -202,7 +201,7 @@ const App = () => {
           )}
           <br />
           {blogs.map(blog => (
-            <Blog key={blog.id} blog={blog} updateBlog={updateBlog} />
+            <Blog key={blog.id} blog={blog} updateBlog={updateBlog} id={blog.id} />
           ))}
         </div>
       )}
