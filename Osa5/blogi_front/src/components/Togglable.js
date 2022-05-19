@@ -1,5 +1,6 @@
 /* Iida Peltonen 2022 */
 
+import '../css/App.css'
 import { useState } from 'react'
 
 const Togglable = (props) => {

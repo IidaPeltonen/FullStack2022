@@ -1,5 +1,7 @@
 /* Iida Peltonen 2022 */
 
+import '../css/App.css'
+
 //uuden lisäys
 const BlogForm = ({ 
   addBlog,

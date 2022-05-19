@@ -74,7 +74,7 @@ const App = () => {
       .create(blogObject)
       .then(returnedBlog => {
         setBlogs(blogs.concat(returnedBlog))
-        setErrorMessage('Blog added')
+        setErrorMessage(`New blog ${returnedBlog.title.toString()} added`)
         setTimeout(() => {
           setErrorMessage(null)
           setNewTitle('')
@@ -91,6 +91,37 @@ const App = () => {
         }, 5000)
       })
   }
+
+    //vanhan päivitys
+    const updateBlog = event => {
+      event.preventDefault()
+      let id = Blog.id //how to get here the id of the blog, of witch button i pressed?
+      
+      console.log('id:' , id)
+      const blogObject = {
+        id: id,
+        title: newTitle,
+        author: newAuthor,
+        url: newUrl,
+        likes: newLikes
+      }
+  
+      blogService
+        .update(id, blogObject)
+        .then(returnedBlog => {
+          setBlogs(blogs.concat(returnedBlog))
+          setErrorMessage('Like added')
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 5000)
+        })
+        .catch(error => {
+          setErrorMessage(error.response.data)
+          setTimeout(() => {
+            setErrorMessage(null)
+          }, 5000)
+        })
+    }
 
   const handleTitleChange = event => {
     setNewTitle(event.target.value)
@@ -137,9 +168,6 @@ const App = () => {
     </form>
   )
 
-  console.log('user: ', user)
-  console.log('uusi: ', uusi)
-
   return (
     <div>
       <h1>BLOGS</h1>
@@ -174,7 +202,7 @@ const App = () => {
           )}
           <br />
           {blogs.map(blog => (
-            <Blog key={blog.id} blog={blog} />
+            <Blog key={blog.id} blog={blog} updateBlog={updateBlog} />
           ))}
         </div>
       )}

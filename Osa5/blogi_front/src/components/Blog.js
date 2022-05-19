@@ -2,9 +2,9 @@
 
 import '../css/App.css'
 
-const Blog = ({blog}) => (
+const Blog = ({blog, updateBlog}) => (
   <div>
-    <b>{blog.title}</b> by: {blog.author} <a href='{blog.url}'>{blog.url}</a> Likes: {blog.likes} 
+    <b>{blog.title}</b> by: {blog.author} <a href='{blog.url}'>{blog.url}</a> Likes: {blog.likes} <button onSubmit={updateBlog}>Like</button>
   </div>  
 )
 
