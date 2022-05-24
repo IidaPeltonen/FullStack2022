@@ -20,7 +20,7 @@ const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
-  const [blogFormVisible, setBlogFormVisible] = useState(null)
+  //en saa toimimaan //const [blogFormVisible, setBlogFormVisible] = useState(null)
 
   useEffect(() => {
     blogService.getAll().then(initialBlogs => {
@@ -81,7 +81,7 @@ const App = () => {
           setNewAuthor('')
           setNewUrl('')
           setNewLikes('')
-          setBlogFormVisible(null) //piilottaa lomakkeen uuden lisäyksen jälkeen
+          //setBlogFormVisible(null) //piilottaa lomakkeen uuden lisäyksen jälkeen
         }, 5000)
       })
       .catch(error => {
@@ -94,13 +94,8 @@ const App = () => {
 
     //vanhan päivitys
     const updateBlog = (id) => {
-      //pitäisi päivittää lähetetyn idn idistä blogia,
-      //antaa sille nimeksi sama kuin ennen
-      //authoriksi sama kuin ennen
-      //urliksi sama kuin ennen
-      //lisätä likejä yhdellä
-      //useriksi sama kuin ennen
     
+      //haetaan sen blogin tiedot, jonka kohdalla like-nappia on painettu
       const likedBlog = blogs.find(blog => blog.id === id)
       
       const blogObject = {
@@ -126,6 +121,25 @@ const App = () => {
             setErrorMessage(null)
           }, 5000)
         })
+    }
+
+    //blogin poisto
+    const removeBlog = id => {
+
+      //haetaan sen blogin id, jonka nappia on painettu
+      const removedBlog = blogs.find(blog => blog.id === id)
+
+      let vastaus = false
+      vastaus = window.confirm(`Poistetaanko ${removedBlog.title}?`)
+      if (vastaus) {
+        blogService
+        .remove(removedBlog.id)
+          setErrorMessage(`${removedBlog.title} poistettu luettelosta`)
+          setTimeout(() => {
+            setErrorMessage(null);
+            window.location.reload(false);
+          }, 5000);
+      }
     }
 
   const handleTitleChange = event => {
@@ -187,8 +201,7 @@ const App = () => {
             <button onClick={logOut}>Logout</button>
           </p>
 
-          {blogFormVisible === null ? (
-            <Togglable buttonLabel='Add new blog' onClick  >
+            <Togglable buttonLabel="Add new blog" >
               <BlogForm
                 newTitle={newTitle}
                 newAuthor={newAuthor}
@@ -202,9 +215,6 @@ const App = () => {
               />
             </Togglable>
             
-          ) : (
-            <div>hhhhh</div>
-          )}
           <br />
           {blogs
             .sort ((a, b) => a.likes < b.likes ? 1 : -1)
@@ -212,7 +222,9 @@ const App = () => {
               <Blog 
                 key={blog.id} 
                 blog={blog} 
-                updateBlog={updateBlog} />
+                updateBlog={updateBlog}
+                removeBlog={removeBlog}
+                name={user.name} />
           )}
         </div>
       )}
