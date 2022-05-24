@@ -2,9 +2,11 @@
 
 import '../css/App.css'
 
+
+
 const Blog = ({blog, updateBlog}) => (
   <div>
-    <b>{blog.title}</b> by: {blog.author} <a href='{blog.url}'>{blog.url}</a> Likes: {blog.likes} <button onClick={updateBlog(blog.id)} >Like</button>
+    <b>{blog.title}</b> by: {blog.author} <a href='{blog.url}'>{blog.url}</a> Likes: {blog.likes} <button onClick={()=>updateBlog(blog.id)} >Like</button>
   </div>  
 )
 

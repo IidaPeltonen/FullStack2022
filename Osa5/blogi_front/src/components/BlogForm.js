@@ -44,6 +44,7 @@ return(
         <input
           id="likes"
           name="likes"
+          type="number"
           value={newLikes}
           onChange={handleLikesChange}
         />

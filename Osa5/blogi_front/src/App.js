@@ -93,24 +93,33 @@ const App = () => {
   }
 
     //vanhan päivitys
-    const updateBlog = (event) => {
+    const updateBlog = (id) => {
+      //pitäisi päivittää lähetetyn idn idistä blogia,
+      //antaa sille nimeksi sama kuin ennen
+      //authoriksi sama kuin ennen
+      //urliksi sama kuin ennen
+      //lisätä likejä yhdellä
+      //useriksi sama kuin ennen
     
-    let id = blog.id
+    let Likedid = id
+
       const blogObject = {
-        title: newTitle,
-        author: newAuthor,
-        url: newUrl,
-        likes: newLikes
+        title: Likedid.title,
+        author: Likedid.author,
+        url: Likedid.url,
+        user:Likedid.user,
+        likes: Likedid.likes + 1
       }
-  
+
       blogService
-        .update(id, blogObject)
+        .update(Likedid, blogObject)
         .then(returnedBlog => {
           setBlogs(blogs.concat(returnedBlog))
           setErrorMessage('Like added')
           setTimeout(() => {
             setErrorMessage(null)
           }, 5000)
+
         })
         .catch(error => {
           setErrorMessage(error.response.data)
@@ -199,7 +208,7 @@ const App = () => {
           )}
           <br />
           {blogs.map(blog => (
-            <Blog key={blog.id} blog={blog} updateBlog={updateBlog} id={blog.id} />
+            <Blog key={blog.id} blog={blog} updateBlog={updateBlog} />
           ))}
         </div>
       )}
