@@ -1,6 +1,6 @@
 /* Iida Peltonen 2022 */
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 import Blog from './components/Blog'
 import BlogForm from './components/BlogForm'
@@ -20,7 +20,6 @@ const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
-  //en saa toimimaan //const [blogFormVisible, setBlogFormVisible] = useState(null)
 
   useEffect(() => {
     blogService.getAll().then(initialBlogs => {
@@ -61,8 +60,9 @@ const App = () => {
   }
 
   //uuden lisäys
-  const addBlog = event => {
-    event.preventDefault()
+  const addBlog = (event) => {
+    blogFormRef.current.toggleVisibility()
+    event.preventDefault()  
     const blogObject = {
       title: newTitle,
       author: newAuthor,
@@ -81,7 +81,6 @@ const App = () => {
           setNewAuthor('')
           setNewUrl('')
           setNewLikes('')
-          //setBlogFormVisible(null) //piilottaa lomakkeen uuden lisäyksen jälkeen
         }, 5000)
       })
       .catch(error => {
@@ -187,6 +186,8 @@ const App = () => {
     </form>
   )
 
+  const blogFormRef = useRef()
+
   return (
     <div>
       <h1>BLOGS</h1>
@@ -201,7 +202,7 @@ const App = () => {
             <button onClick={logOut}>Logout</button>
           </p>
 
-            <Togglable buttonLabel="Add new blog" >
+            <Togglable buttonLabel="Add new blog" ref={blogFormRef} >
               <BlogForm
                 newTitle={newTitle}
                 newAuthor={newAuthor}
