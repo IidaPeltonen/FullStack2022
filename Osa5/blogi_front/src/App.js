@@ -94,11 +94,9 @@ const App = () => {
 
     //vanhan päivitys
     const updateBlog = (event) => {
-      event.preventDefault()
-
-      console.log('id:' , id)
+    
+    let id = blog.id
       const blogObject = {
-        id: 1,
         title: newTitle,
         author: newAuthor,
         url: newUrl,
