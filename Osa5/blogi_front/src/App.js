@@ -114,7 +114,8 @@ const App = () => {
       blogService
         .update(id, blogObject)
         .then(returnedBlog => {
-          setBlogs(blogs.concat(returnedBlog))
+          //setBlogs(blogs.concat(returnedBlog))
+          setBlogs(blogs.map(blog => blog.id === returnedBlog.id ? returnedBlog : blog))
           setErrorMessage('Like added')
           setTimeout(() => {
             setErrorMessage(null)
