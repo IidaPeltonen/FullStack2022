@@ -17,7 +17,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "server": "json-server -p3001 db.json",
+    "eslint": "eslint ."
   },
   "eslintConfig": {
     "extends": [
@@ -37,5 +39,8 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:3003"
+  "proxy": "http://localhost:3003",
+  "devDependencies": {
+    "eslint-plugin-jest": "^26.2.2"
+  }
 }
