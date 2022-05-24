@@ -101,25 +101,24 @@ const App = () => {
       //lisätä likejä yhdellä
       //useriksi sama kuin ennen
     
-    let Likedid = id
-
+      const likedBlog = blogs.find(blog => blog.id === id)
+      
       const blogObject = {
-        title: Likedid.title,
-        author: Likedid.author,
-        url: Likedid.url,
-        user:Likedid.user,
-        likes: Likedid.likes + 1
+        title: likedBlog.title,
+        author: likedBlog.author,
+        url: likedBlog.url,
+        user:likedBlog.user,
+        likes: likedBlog.likes + 1
       }
 
       blogService
-        .update(Likedid, blogObject)
+        .update(id, blogObject)
         .then(returnedBlog => {
           setBlogs(blogs.concat(returnedBlog))
           setErrorMessage('Like added')
           setTimeout(() => {
             setErrorMessage(null)
           }, 5000)
-
         })
         .catch(error => {
           setErrorMessage(error.response.data)
@@ -204,7 +203,7 @@ const App = () => {
             </Togglable>
             
           ) : (
-            <div></div>
+            <div>hhhhh</div>
           )}
           <br />
           {blogs.map(blog => (
