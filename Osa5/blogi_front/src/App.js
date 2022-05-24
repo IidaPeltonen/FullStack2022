@@ -20,7 +20,7 @@ const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
-  const [uusi, setUusi] = useState(null)
+  const [blogFormVisible, setBlogFormVisible] = useState(null)
 
   useEffect(() => {
     blogService.getAll().then(initialBlogs => {
@@ -81,7 +81,7 @@ const App = () => {
           setNewAuthor('')
           setNewUrl('')
           setNewLikes('')
-          setUusi(null) //piilottaa lomakkeen uuden lisäyksen jälkeen
+          setBlogFormVisible(null) //piilottaa lomakkeen uuden lisäyksen jälkeen
         }, 5000)
       })
       .catch(error => {
@@ -114,7 +114,6 @@ const App = () => {
       blogService
         .update(id, blogObject)
         .then(returnedBlog => {
-          //setBlogs(blogs.concat(returnedBlog))
           setBlogs(blogs.map(blog => blog.id === returnedBlog.id ? returnedBlog : blog))
           setErrorMessage('Like added')
           setTimeout(() => {
@@ -188,8 +187,8 @@ const App = () => {
             <button onClick={logOut}>Logout</button>
           </p>
 
-          {uusi === null ? (
-            <Togglable buttonLabel='Add new blog'>
+          {blogFormVisible === null ? (
+            <Togglable buttonLabel='Add new blog' onClick  >
               <BlogForm
                 newTitle={newTitle}
                 newAuthor={newAuthor}
@@ -207,9 +206,14 @@ const App = () => {
             <div>hhhhh</div>
           )}
           <br />
-          {blogs.map(blog => (
-            <Blog key={blog.id} blog={blog} updateBlog={updateBlog} />
-          ))}
+          {blogs
+            .sort ((a, b) => a.likes < b.likes ? 1 : -1)
+            .map(blog => 
+              <Blog 
+                key={blog.id} 
+                blog={blog} 
+                updateBlog={updateBlog} />
+          )}
         </div>
       )}
     </div>
