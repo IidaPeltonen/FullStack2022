@@ -60,9 +60,8 @@ const App = () => {
     }
 
     //uuden lisäys
-    const addBlog = event => {
+    const addBlog = ({ newTitle, newAuthor, newUrl, newLikes }) => {
         blogFormRef.current.toggleVisibility()
-        event.preventDefault()
         const blogObject = {
             title: newTitle,
             author: newAuthor,
