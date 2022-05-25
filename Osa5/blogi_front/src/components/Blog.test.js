@@ -12,6 +12,7 @@ test('renders content', () => {
         author: 'Iida Peltonen',
         url: 'www.iida.fi',
         likes: 5,
+        user: { name: 'kalle' }
     }
 
     render(<Blog blog={blog} title={blog.title} author={blog.author}/>)
@@ -30,6 +31,7 @@ test('clicking the like-button twice calls event handler twice', async () => {
         author: 'Iida Peltonen',
         url: 'www.iida.fi',
         likes: 5,
+        user: { name: 'kalle' }
     }
 
     const mockHandler = jest.fn()

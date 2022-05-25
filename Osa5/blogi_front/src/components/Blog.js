@@ -8,11 +8,11 @@ const Blog = ({ blog, updateBlog, removeBlog, name }) => (
         <b>{blog.title}</b> by: {blog.author} <a href='{blog.url}'>{blog.url}</a>{' '}
     Likes: {blog.likes}{' '}
         <button onClick={() => updateBlog(blog.id)}>Like</button>
-        {/*  {name === blog.user.name ? (
+        {name === blog.user.name ? (
             <button onClick={() => removeBlog(blog.id)}>Delete</button>
         ) : (
             <div></div>
-        )} */}
+        )}
     </div>
 )
 
