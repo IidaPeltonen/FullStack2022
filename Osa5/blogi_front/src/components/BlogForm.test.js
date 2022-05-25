@@ -24,5 +24,6 @@ test('<BlogForm /> updates parent state and calls onSubmit', async () => {
     userEvent.click(sendButton)
 
     expect(addBlog.mock.calls).toHaveLength(1)
-    expect(addBlog.mock.calls[0][0].content).toBe('testblog','testblog','testblog',4)
+    // expect(addBlog.mock.calls[0][0].content).toBe('testblog','testblog','testblog',4)
+    expect(addBlog.mock.calls[0][0]).toEqual({ title: 'title', author: 'author', url: 'url', likes: 'likes' })
 })
