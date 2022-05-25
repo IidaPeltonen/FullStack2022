@@ -11,7 +11,10 @@ const BlogForm = ({ addBlog }) => {
     const [newUrl, setNewUrl] = useState('') //osoitteet
     const [newLikes, setNewLikes] = useState('') //tykkäykset
 
-    const handleAddBlog = () => addBlog({ newTitle,newAuthor, newUrl, newLikes })
+    const handleAddBlog = (event) => {
+        event.preventDefault()
+        addBlog({ newTitle, newAuthor, newUrl, newLikes })
+    }
 
     return(
         <div>

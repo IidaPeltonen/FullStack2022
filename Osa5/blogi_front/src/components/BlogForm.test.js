@@ -8,6 +8,7 @@ import userEvent from '@testing-library/user-event'
 
 test('<BlogForm /> updates parent state and calls onSubmit', async () => {
     const handleAddBlog = jest.fn()
+    const user = userEvent.setup()
 
     render(<BlogForm addBlog={handleAddBlog} />)
 
@@ -17,13 +18,17 @@ test('<BlogForm /> updates parent state and calls onSubmit', async () => {
     const likes = screen.getByPlaceholderText('Likes')
     const sendButton = screen.getByText('Create')
 
-    userEvent.type(title, 'testblog')
-    userEvent.type(author, 'testblog')
-    userEvent.type(url, 'testblog')
-    userEvent.type(likes, '4')
-    userEvent.click(sendButton)
+    await user.type(title, 'testblog')
+    await user.type(author, 'testblog')
+    await user.type(url, 'testblog')
+    await user.type(likes, '4')
+    await user.click(sendButton)
 
     expect(handleAddBlog.mock.calls).toHaveLength(1)
-    // expect(addBlog.mock.calls[0][0].content).toBe('testblog','testblog','testblog',4)
-    expect(handleAddBlog.mock.calls[0][0]).toEqual({ title: 'title', author: 'author', url: 'url', likes: 'likes' })
+    expect(handleAddBlog.mock.calls[0][0]).toEqual({
+        newTitle: 'testblog',
+        newAuthor: 'testblog',
+        newUrl: 'testblog',
+        newLikes: '4',
+    })
 })
