@@ -9,7 +9,7 @@ import userEvent from '@testing-library/user-event'
 test('<BlogForm /> updates parent state and calls onSubmit', async () => {
     const handleAddBlog = jest.fn()
 
-    render(<BlogForm handleAddBlog={handleAddBlog} />)
+    render(<BlogForm addBlog={handleAddBlog} />)
 
     const title = screen.getByPlaceholderText('Title')
     const author = screen.getByPlaceholderText('Author')
