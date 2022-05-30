@@ -32,7 +32,7 @@ describe('Blog app', function () {
             cy.get('#Password').type('wrong')
             cy.get('#login').click()
 
-            cy.contains('Wrong credentials')
+            cy.get('.error').contains('Wrong credentials')
         })
     })
     describe('When logged in', function () {
@@ -54,7 +54,7 @@ describe('Blog app', function () {
             cy.get('#likes').type('2')
             cy.get('#submit').click()
 
-            cy.contains('New blog Cypress-testi added')
+            cy.get('.error').contains('New blog Cypress-testi added')
             cy.contains('www.cypress-testi.com')
         })
 
@@ -67,16 +67,15 @@ describe('Blog app', function () {
             cy.get('#likes').type('2')
             cy.get('#submit').click()
 
-            cy.contains('New blog Cypress-testi added')
+            cy.get('.error').contains('New blog Cypress-testi added')
             cy.contains('www.cypress-testi.com')
 
             //tykätään juuri lisätystä blogista
             cy.contains('Like this blog').click()
 
-            cy.contains('Like added')
+            cy.get('.error').contains('Like added')
             cy.contains('Cypress-testi')
             cy.contains('3')
-
         })
 
         //oman poisto
@@ -89,14 +88,21 @@ describe('Blog app', function () {
             cy.get('#likes').type('2')
             cy.get('#submit').click()
 
-            cy.contains('New blog Cypress-testi added')
+            //kirjaudutaan ulos, jotta poisto-nappi saadaan nökyviin
+            cy.contains('Logout').click()
+            //takaisin sisä'n
+            cy.contains('Login').click()
+            cy.get('#username').type('Iida')
+            cy.get('#Password').type('salasana')
+            cy.get('#login').click()
+
+            cy.contains('Logged in as Iida')
+
             cy.contains('www.cypress-testi.com')
+            //koska käyttäjä on sama kuin blogin lisääjä, deleten pitäisi näkyä
             cy.contains('Delete')
 
-            //poistetaan juuri lisätty blogi
             cy.contains('Delete').click()
-
-
         })
     })
 })
