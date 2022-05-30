@@ -44,7 +44,7 @@ const BlogForm = ({ addBlog }) => {
                     onChange={(event) => setNewUrl(event.target.value)}
                     placeholder='Url'
                 /><br></br>
-                <label htmlFor='url'>Likes </label>
+                <label htmlFor='likes'>Likes </label>
                 <input
                     id="likes"
                     name="likes"

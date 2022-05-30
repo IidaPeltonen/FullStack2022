@@ -55,7 +55,23 @@ describe('Blog app', function () {
             cy.get('#submit').click()
 
             cy.contains('New blog Cypress-testi added')
+            cy.contains('www.cypress-testi.com')
+        })
+
+        it('A blog can be liked', function () {
+            cy.contains('Add new blog').click()
+            cy.get('#title').type('Cypress-testi')
+            cy.get('#author').type('Iida Peltonen')
+            cy.get('#url').type('www.cypress-testi.com')
+            cy.get('#likes').type('2')
+            cy.get('#submit').click()
+
+            cy.contains('New blog Cypress-testi added')
+            cy.contains('www.cypress-testi.com')
+            cy.contains('Like this blog').click()
+           
             cy.contains('Cypress-testi')
+            cy.contains('3')
         })
     })
 })

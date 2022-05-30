@@ -7,7 +7,7 @@ const Blog = ({ blog, updateBlog, removeBlog, name }) => (
     <div>
         <b>{blog.title}</b> by: {blog.author} <a href='{blog.url}'>{blog.url}</a>{' '}
     Likes: {blog.likes}{' '}
-        <button onClick={() => updateBlog(blog.id)}>Like</button>
+        <button onClick={() => updateBlog(blog.id)}>Like this blog</button>
         {name === blog.user.name ? (
             <button onClick={() => removeBlog(blog.id)}>Delete</button>
         ) : (
