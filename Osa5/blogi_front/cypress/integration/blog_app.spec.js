@@ -7,6 +7,7 @@ describe('Blog app', function () {
             username: 'Iida',
             password: 'salasana'
         }
+
         cy.request('POST', 'http://localhost:3000/api/users/', user)
         cy.visit('http://localhost:3000')
     })
@@ -44,6 +45,15 @@ describe('Blog app', function () {
             cy.get('#login').click()
 
             cy.contains('Logged in as Iida')
+
+            //luodaan listalle valmiiksi yksi blogi
+            cy.contains('Add new blog').click()
+            cy.get('#title').type('Eka blogi')
+            cy.get('#author').type('Iida Peltonen')
+            cy.get('#url').type('www.eka.com')
+            cy.get('#likes').type('50')
+            cy.get('#submit').click()
+
         })
 
         it('A blog can be created', function () {
@@ -103,6 +113,53 @@ describe('Blog app', function () {
             cy.contains('Delete')
 
             cy.contains('Delete').click()
+        })
+        //blogien järjestely
+        it.only('Bloglist is in the right order', function () {
+            //logataan ulos, jotta saadaan lisättyä uusi
+            cy.contains('Logout').click()
+            //takaisin sisään
+            cy.contains('Login').click()
+            cy.get('#username').type('Iida')
+            cy.get('#Password').type('salasana')
+            cy.get('#login').click()
+
+            //lisätään blogi
+            cy.contains('Add new blog').click()
+            cy.get('#title').type('Cypress-testi')
+            cy.get('#author').type('Iida Peltonen')
+            cy.get('#url').type('www.cypress-testi.com')
+            cy.get('#likes').type('2')
+            cy.get('#submit').click()
+
+            //logataan ulos, jotta saadaan lisättyä kolmas
+            cy.contains('Logout').click()
+            //takaisin sisään
+            cy.contains('Login').click()
+            cy.get('#username').type('Iida')
+            cy.get('#Password').type('salasana')
+            cy.get('#login').click()
+
+            //lisätään blogi
+            cy.contains('Add new blog').click()
+            cy.get('#title').type('Kolmas lisätty blogi')
+            cy.get('#author').type('Erkki Junkkarinen')
+            cy.get('#url').type('www.erkki.com')
+            cy.get('#likes').type('12')
+            cy.get('#submit').click()
+
+            //ulos, jotta saadaan rivit nökymään oikein
+            cy.contains('Logout').click()
+
+            //takaisin sisään
+            cy.contains('Login').click()
+            cy.get('#username').type('Iida')
+            cy.get('#Password').type('salasana')
+            cy.get('#login').click()
+
+            //tarkistetaan järjestys
+            cy.get('.title').eq(0).should('contain', 'Eka blogi')
+            cy.get('.title').eq(2).should('contain', 'Cypress-testi')
         })
     })
 })
