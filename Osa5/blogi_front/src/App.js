@@ -17,7 +17,7 @@ const App = () => {
     const [newUrl, setNewUrl] = useState('') //osoitteet
     const [newLikes, setNewLikes] = useState('') //tykkäykset
     const [errorMessage, setErrorMessage] = useState(null)
-    const [username, setUsername] = useState('')
+    const [username, setusername] = useState('')
     const [password, setPassword] = useState('')
     const [user, setUser] = useState(null)
 
@@ -47,13 +47,13 @@ const App = () => {
             setUser(user)
             blogService.setToken(user.token)
             window.localStorage.setItem('loggedBlogappUser', JSON.stringify(user))
-            setUsername('')
+            setusername('')
             setPassword('')
         } catch (exception) {
             setErrorMessage('Wrong credentials')
             setTimeout(() => {
                 setErrorMessage(null)
-                setUsername('')
+                setusername('')
                 setPassword('')
             }, 5000)
         }
@@ -163,13 +163,13 @@ const App = () => {
     const loginForm = () => (
         <form onSubmit={handleLogin}>
             <div>
-        Username
+        username
                 <input
                     type='text'
-                    id='Username'
+                    id='username'
                     value={username}
-                    name='Username'
-                    onChange={({ target }) => setUsername(target.value)}
+                    name='username'
+                    onChange={({ target }) => setusername(target.value)}
                 />
             </div>
             <div>
@@ -225,7 +225,7 @@ const App = () => {
                                 blog={blog}
                                 updateBlog={updateBlog}
                                 removeBlog={removeBlog}
-                                name={user.name}
+                                username={user.username}
                             />
                         ))}
                 </div>
