@@ -20,13 +20,13 @@ const asObject = (anecdote) => {
 const initialState = anecdotesAtStart.map(asObject)
 //const initialState = []
 
-const reducer = (state = initialState, action) => {
+const voteReducer = (state = initialState, action) => {
   console.log('state now: ', state)
   console.log('action', action)
-  if (action.type === 'VOTE') {
+  if (action.type === 'INCREMENT') {
       return {...state, vote: state.votes +1}
   }
   return state
 }
 
-export default reducer
+export default voteReducer
